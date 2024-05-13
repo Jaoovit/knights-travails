@@ -28,4 +28,19 @@ function buildInfoArr(boardArr, startIndex) {
   return newArr;
 }
 
+function buildAdjList(board) {
+  let adjList = new Array();
+  for (let i = 0; i < board.length; i++) {
+    let neighbors = new Array();
+    for (let j = 0; j < 8; j++) {
+      let neighbor = findNextMove(j, board[i][0], board[i][1]);
+      if (containsSpot(board, neighbor)) {
+        neighbors.push(findIndex(board, neighbor));
+      }
+      adjList[i] = neighbors;
+    }
+    return adjList;
+  }
+}
+
 console.log(createBoard()[0]);
