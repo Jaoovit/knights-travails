@@ -54,4 +54,37 @@ function findNextMove(index, x, y) {
   if (index == 7) return [x + 2, y - 1];
 }
 
-console.log(createBoard()[0]);
+function knightMoves(start, end) {
+  let board = createBoard();
+  let startIndex = findIndex(board, start);
+  let endIndex = findIndex(board, end);
+  let bfsInfo = buildInfoArr(board, startIndex);
+  let adjList = buildAdjList(board);
+  let queue = [startIndex];
+  let u;
+
+  while (u != endIndex) {
+    u = queue.shift();
+
+    for (let i = 0; i < adjList[u].length; i++) {
+      let vIndex = adjList[u][i];
+
+      if (vIndex === endIndex) {
+        bfsInfo[vIndex].prodecessor = u;
+        let path = new Array();
+        constructPath(board, bfsInfo, bfsInfo[vIndex], vIndex, path);
+        result = path.reverse().splice(0, 0, start);
+        console.log(
+          `You made it in ${path.length - 1} moves! Here's your path:`
+        );
+        return path;
+      } else {
+        if (bfsInfo[vIndex].distance == null) {
+          bfsInfo[vIndex].distance = bfsInfo[u].distance + 1;
+          bfsInfo[vIndex].prodecessor = u;
+          queue.push(vIndex);
+        }
+      }
+    }
+  }
+}
