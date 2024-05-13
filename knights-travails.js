@@ -43,4 +43,15 @@ function buildAdjList(board) {
   }
 }
 
+function findNextMove(index, x, y) {
+  if (index == 0) return [x + 2, y + 1];
+  if (index == 1) return [x + 1, y + 2];
+  if (index == 2) return [x - 1, y + 2];
+  if (index == 3) return [x - 2, y + 1];
+  if (index == 4) return [x - 2, y - 1];
+  if (index == 5) return [x - 1, y - 2];
+  if (index == 6) return [x + 1, y - 2];
+  if (index == 7) return [x + 2, y - 1];
+}
+
 console.log(createBoard()[0]);
